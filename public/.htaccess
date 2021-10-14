@@ -1,0 +1,53 @@
+#--------------------------------------------------
+# Répertoire : /
+#--------------------------------------------------
+
+# Le serveur doit suivre les liens symboliques :
+Options +FollowSymlinks
+
+# Activation du module de réécriture d'URL :
+RewriteEngine on
+
+#--------------------------------------------------
+# Règles de réécriture d'URL:
+#--------------------------------------------------
+
+
+
+#--------------------------------------------------
+# POST
+#--------------------------------------------------
+   # ROUTE DETAIL D'UN POST
+   # PATTERN: posts/{id}/{slug}.html
+   # URL: index.php?postID=x
+   RewriteRule ^posts\/([1-9][0-9]*)\/([a-z0-9][a-z0-9\-]*).html$ index.php?posts=show&id=$1 [L]
+
+   # ROUTE AJOUT D'UN POST: affichage du formulaire
+   # PATTERN: /posts/add/form.html
+   # URL: index.php?posts=addForm
+   RewriteRule ^posts\/add\/form.html$ index.php?posts=addForm [L]
+
+   # ROUTE AJOUT D'UN POSTS: INSERT
+   # PATTERN: /posts/add/insert.html
+   # URL: index.php?posts=add
+   RewriteRule ^posts\/add\/insert.html$ index.php?posts=add [L]
+
+   # ROUTE MODIFICATION D'UN POSTS: FORMULAIRE
+   # PATTERN: /posts/id/slug-du-post/edit/form.html
+   # URL: index.php?posts=editForm&id=x
+   RewriteRule ^posts\/([1-9][0-9]*)\/([a-z0-9][a-z0-9\-]*)\/edit\/form.html$ index.php?posts=editForm&id=$1 [L]
+
+   # ROUTE MODIFICATION D'UN POSTS: UPDATE
+   # PATTERN: /posts/id/slug-du-post/edit/update.html
+   # URL: index.php?posts=editForm&id=x
+   RewriteRule ^posts\/([1-9][0-9]*)\/([a-z0-9][a-z0-9\-]*)\/edit\/update.html$ index.php?posts=edit&id=$1 [L]
+
+   # ROUTE SUPPRESSION D'UN POSTS
+   # PATTERN: /posts/id/slug-du-post/delete.html
+   # URL: index.php?posts=delete&id=x
+   RewriteRule ^posts\/([1-9][0-9]*)\/([a-z0-9][a-z0-9\-]*)\/delete.html$ index.php?posts=delete&id=$1 [L]
+
+#--------------------------------------------------
+
+RewriteCond %{REQUEST_URI} !\.(js|css|jpg|gif|zip|png|pdf)$ [NC]
+RewriteRule ^(.*)$ index.php [L]
